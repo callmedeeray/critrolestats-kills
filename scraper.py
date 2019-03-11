@@ -34,9 +34,24 @@ for element in root.body.getchildren():
                 ind2 = k.find(')')
                 epinfo = k[ind+1:ind2]
                 killedwhat = k[ind2+2:len(k)]
-                dat = {'character': char, 'episode_info': episode, 'killed_what': killedwhat, 'kills': 1.0, 'details': k, 'pk': pk}
-                scraperwiki.sqlite.save(unique_keys=['pk'], data = dat)
-                pk += 1
+                if char.find(',') > -1:
+                    ch = char.split(',')
+                    for c in ch:
+                        char = c.replace('and','').strip()
+                        dat = {'character': c, 'episode_info': episode, 'killed_what': killedwhat, 'kills': 1.0/len(ch), 'details': k, 'pk': pk}
+                        scraperwiki.sqlite.save(unique_keys=['pk'], data = dat)
+                        pk += 1
+                else if char.find(',') == -1 and char.find(' and ') > -1:
+                    ch = char.split(' and ')
+                    for c in ch:
+                        char = c.replace(' and ','').strip()
+                        dat = {'character': c, 'episode_info': episode, 'killed_what': killedwhat, 'kills': 1.0/len(ch), 'details': k, 'pk': pk}
+                        scraperwiki.sqlite.save(unique_keys=['pk'], data = dat)
+                        pk += 1
+                else:
+                    dat = {'character': char, 'episode_info': episode, 'killed_what': killedwhat, 'kills': 1.0, 'details': k, 'pk': pk}
+                    scraperwiki.sqlite.save(unique_keys=['pk'], data = dat)
+                    pk += 1
 
         
 
