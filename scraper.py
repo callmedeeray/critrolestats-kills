@@ -41,7 +41,7 @@ for element in root.body.getchildren():
                         dat = {'character': c, 'episode_info': episode, 'killed_what': killedwhat, 'kills': 1.0/len(ch), 'details': k, 'pk': pk}
                         scraperwiki.sqlite.save(unique_keys=['pk'], data = dat)
                         pk += 1
-                else if char.find(',') == -1 and char.find(' and ') > -1:
+                elif char.find(',') == -1 and char.find(' and ') > -1:
                     ch = char.split(' and ')
                     for c in ch:
                         char = c.replace(' and ','').strip()
