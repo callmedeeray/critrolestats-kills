@@ -22,10 +22,6 @@ from lxml.html.soupparser import fromstring
 root = fromstring(page4.content)
 
 
-dat = {'character': '', 'episode_info': '', 'killed_what': '', 'kills': 0, 'details': '', 'pk': 0}
-scraperwiki.sqlite.save(unique_keys=['pk'], data = dat)
-
-
 pk = 1
 for element in root.body.getchildren():
     if element.tag == 'h3':
